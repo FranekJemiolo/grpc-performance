@@ -25,10 +25,9 @@ def get_random_messages(message_size, batch_size):
 
 
 class DataStreamer(grpc_performance.grpc_performance_pb2_grpc.DataStreamerServicer):
-    def __init__(self, batch_size, compression):
+    def __init__(self, batch_size):
         super().__init__()
         self.batch_size = batch_size
-        self.compression = compression
 
     async def streamData(self, request, context):
         data = json.loads(request.jsonRequest)
@@ -53,9 +52,9 @@ class DataStreamer(grpc_performance.grpc_performance_pb2_grpc.DataStreamerServic
 
 
 async def serve(batch_size, compression):
-    server = grpc.aio.server()
+    server = grpc.aio.server(compression=compression_algos[compression])
     grpc_performance.grpc_performance_pb2_grpc.add_DataStreamerServicer_to_server(
-        DataStreamer(batch_size, compression), server)
+        DataStreamer(batch_size), server)
     listen_addr = '[::]:50051'
     server.add_insecure_port(listen_addr)
     logging.info(f"starting server on {listen_addr}")
