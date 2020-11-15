@@ -19,5 +19,11 @@ setuptools.setup(
         'tqdm'
     ],
     packages=["grpc_performance"],
+    entry_points={
+        'console_scripts': [
+            'data_streamer_client=grpc_performance.data_streamer_client:main',
+            'data_streamer_server=grpc_performance.data_streamer_server:main'
+        ]
+    },
     python_requires='>=3.8',
 )
