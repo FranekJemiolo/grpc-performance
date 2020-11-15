@@ -4,6 +4,7 @@ package grpc_performance;
 
 service DataStreamer {
   rpc streamData (StreamRequest) returns (stream SingleMessage) {}
+  rpc streamBatchData (StreamRequest) returns (stream BatchMessage) {}
 }
 
 message StreamRequest {
@@ -12,4 +13,8 @@ message StreamRequest {
 
 message SingleMessage {
   bytes message = 1;
+}
+
+message BatchMessage {
+  repeated SingleMessage messages = 1;
 }

@@ -19,12 +19,23 @@ class DataStreamerStub(object):
                 request_serializer=grpc__performance__pb2.StreamRequest.SerializeToString,
                 response_deserializer=grpc__performance__pb2.SingleMessage.FromString,
                 )
+        self.streamBatchData = channel.unary_stream(
+                '/grpc_performance.DataStreamer/streamBatchData',
+                request_serializer=grpc__performance__pb2.StreamRequest.SerializeToString,
+                response_deserializer=grpc__performance__pb2.BatchMessage.FromString,
+                )
 
 
 class DataStreamerServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def streamData(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def streamBatchData(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_DataStreamerServicer_to_server(servicer, server):
                     servicer.streamData,
                     request_deserializer=grpc__performance__pb2.StreamRequest.FromString,
                     response_serializer=grpc__performance__pb2.SingleMessage.SerializeToString,
+            ),
+            'streamBatchData': grpc.unary_stream_rpc_method_handler(
+                    servicer.streamBatchData,
+                    request_deserializer=grpc__performance__pb2.StreamRequest.FromString,
+                    response_serializer=grpc__performance__pb2.BatchMessage.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class DataStreamer(object):
         return grpc.experimental.unary_stream(request, target, '/grpc_performance.DataStreamer/streamData',
             grpc__performance__pb2.StreamRequest.SerializeToString,
             grpc__performance__pb2.SingleMessage.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def streamBatchData(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_stream(request, target, '/grpc_performance.DataStreamer/streamBatchData',
+            grpc__performance__pb2.StreamRequest.SerializeToString,
+            grpc__performance__pb2.BatchMessage.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

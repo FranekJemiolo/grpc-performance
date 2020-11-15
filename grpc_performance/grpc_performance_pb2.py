@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x16grpc_performance.proto\x12\x10grpc_performance\"$\n\rStreamRequest\x12\x13\n\x0bjsonRequest\x18\x01 \x01(\x0c\" \n\rSingleMessage\x12\x0f\n\x07message\x18\x01 \x01(\x0c\x32\x62\n\x0c\x44\x61taStreamer\x12R\n\nstreamData\x12\x1f.grpc_performance.StreamRequest\x1a\x1f.grpc_performance.SingleMessage\"\x00\x30\x01\x62\x06proto3'
+  serialized_pb=b'\n\x16grpc_performance.proto\x12\x10grpc_performance\"$\n\rStreamRequest\x12\x13\n\x0bjsonRequest\x18\x01 \x01(\x0c\" \n\rSingleMessage\x12\x0f\n\x07message\x18\x01 \x01(\x0c\"A\n\x0c\x42\x61tchMessage\x12\x31\n\x08messages\x18\x01 \x03(\x0b\x32\x1f.grpc_performance.SingleMessage2\xba\x01\n\x0c\x44\x61taStreamer\x12R\n\nstreamData\x12\x1f.grpc_performance.StreamRequest\x1a\x1f.grpc_performance.SingleMessage\"\x00\x30\x01\x12V\n\x0fstreamBatchData\x12\x1f.grpc_performance.StreamRequest\x1a\x1e.grpc_performance.BatchMessage\"\x00\x30\x01\x62\x06proto3'
 )
 
 
@@ -88,8 +88,42 @@ _SINGLEMESSAGE = _descriptor.Descriptor(
   serialized_end=114,
 )
 
+
+_BATCHMESSAGE = _descriptor.Descriptor(
+  name='BatchMessage',
+  full_name='grpc_performance.BatchMessage',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='messages', full_name='grpc_performance.BatchMessage.messages', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=116,
+  serialized_end=181,
+)
+
+_BATCHMESSAGE.fields_by_name['messages'].message_type = _SINGLEMESSAGE
 DESCRIPTOR.message_types_by_name['StreamRequest'] = _STREAMREQUEST
 DESCRIPTOR.message_types_by_name['SingleMessage'] = _SINGLEMESSAGE
+DESCRIPTOR.message_types_by_name['BatchMessage'] = _BATCHMESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 StreamRequest = _reflection.GeneratedProtocolMessageType('StreamRequest', (_message.Message,), {
@@ -106,6 +140,13 @@ SingleMessage = _reflection.GeneratedProtocolMessageType('SingleMessage', (_mess
   })
 _sym_db.RegisterMessage(SingleMessage)
 
+BatchMessage = _reflection.GeneratedProtocolMessageType('BatchMessage', (_message.Message,), {
+  'DESCRIPTOR' : _BATCHMESSAGE,
+  '__module__' : 'grpc_performance_pb2'
+  # @@protoc_insertion_point(class_scope:grpc_performance.BatchMessage)
+  })
+_sym_db.RegisterMessage(BatchMessage)
+
 
 
 _DATASTREAMER = _descriptor.ServiceDescriptor(
@@ -115,8 +156,8 @@ _DATASTREAMER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=116,
-  serialized_end=214,
+  serialized_start=184,
+  serialized_end=370,
   methods=[
   _descriptor.MethodDescriptor(
     name='streamData',
@@ -125,6 +166,16 @@ _DATASTREAMER = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_STREAMREQUEST,
     output_type=_SINGLEMESSAGE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='streamBatchData',
+    full_name='grpc_performance.DataStreamer.streamBatchData',
+    index=1,
+    containing_service=None,
+    input_type=_STREAMREQUEST,
+    output_type=_BATCHMESSAGE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

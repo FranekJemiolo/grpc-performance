@@ -15,8 +15,9 @@ setuptools.setup(
         'grpcio',
         'grpcio-tools',
         'click',
-        'numpy'
+        'numpy',
+        'tqdm'
     ],
     packages=["grpc_performance"],
-    python_requires='>=3.7',
+    python_requires='>=3.8',
 )
