@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import grpc_performance_pb2 as grpc__performance__pb2
+import grpc_performance.grpc_performance_pb2 as grpc__performance__pb2
 
 
 class DataStreamerStub(object):
