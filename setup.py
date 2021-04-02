@@ -14,6 +14,7 @@ setuptools.setup(
     install_requires=[
         'grpcio',
         'grpcio-tools',
+        'grpclib',
         'click',
         'numpy',
         'tqdm'
@@ -22,7 +23,9 @@ setuptools.setup(
     entry_points={
         'console_scripts': [
             'data_streamer_client=grpc_performance.data_streamer_client:main',
-            'data_streamer_server=grpc_performance.data_streamer_server:main'
+            'data_streamer_grpclib_client=grpc_performance.data_streamer_grpclib_client:main',
+            'data_streamer_server=grpc_performance.data_streamer_server:main',
+            'data_streamer_grpclib_server=grpc_performance.data_streamer_grpclib_server:main'
         ]
     },
     python_requires='>=3.8',
